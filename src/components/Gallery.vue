@@ -12,25 +12,41 @@
 </template>
 
 <script>
+  import firebase from 'firebase';
   import VueGallery from 'vue-gallery';
   
   export default {
     data: function () {
       return {
-        images: [
-          'https://dummyimage.com/800/ffffff/000000',
-          'https://dummyimage.com/1600/ffffff/000000',
-          'https://dummyimage.com/1280/000000/ffffff',
-          'https://dummyimage.com/400/000000/ffffff',
-        ],
-        index: null
+        images: [],
+        index: null,
+        storageRef: firebase.storage().ref(),
       };
     },
 
     components: {
       'gallery': VueGallery
     },
+    methods: {
+    getImages(){
+      let i = 0;
+      this.storageRef.child('/').listAll().then((resp => {
+        resp.items.forEach((imgRef) => {
+          i++;
+          this.showImages(i,imgRef);
+        });
+      }));
+    },
+    showImages(row,images){
+      images.getDownloadURL().then((url) => {
+        this.images.push(url);
+      });
+    }
+  },
+  created(){
+    this.getImages();
   }
+}
 </script> 
 
 <style scoped>
