@@ -3,6 +3,15 @@ node_modules
 /dist
 /src/firebase
 
+### Firebase ###
+.idea
+**/node_modules/*
+**/.firebaserc
+
+### Firebase Patch ###
+.runtimeconfig.json
+.firebase/
+
 # local env files
 .env.local
 .env.*.local
