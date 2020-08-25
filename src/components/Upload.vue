@@ -2,7 +2,7 @@
 <template>
       <div @click="chooseImg" class="upload">
         <a>
-        <img src="https://img.icons8.com/cute-clipart/64/000000/upload.png"/>
+        <img class="icon" src="https://img.icons8.com/fluent/48/000000/upload-2.png"/>
           <input id="imgUpload" type="file" @change="onUpload" accept="image/*" hidden>
         </a>
       </div>
@@ -44,7 +44,7 @@ export default {
 .upload {
   cursor: pointer;
   position: absolute;
-  right: 0px;
+  right: 15px;
   bottom: 50px;
   display: inline-block;
   width: 60px;
@@ -55,5 +55,17 @@ export default {
   margin-bottom: 20px;
   margin-right: 20px;
 }
+
+@media screen and (max-width: 767px) {
+    .icon {
+    position: fixed;
+    bottom: 0;
+}
+  }
+
+/* .icon {
+    position: fixed;
+    bottom: 0;
+} */
 
 </style>
