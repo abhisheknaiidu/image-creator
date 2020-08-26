@@ -11,10 +11,8 @@
       >
         <v-layer ref="layer">
           <v-image
-
-            :config="{
-                image : images[index]
-                }"
+            :config="image"
+            @transformend="handleTransformEnd"
           />
           <v-transformer ref="transformer" />
         </v-layer>
@@ -28,13 +26,40 @@ export default {
     name: 'Editor',
     props: ['images', 'index'],
     data() {
-        return {
+    return {
       stageSize: {
         width: 400,
         height: 400,
       },
+      image: null,
+      editIndex: this.index,
       }
   },
+  created() {
+    const image = new window.Image();
+    image.src = this.images[this.editIndex];
+    image.onload = () => {
+      // set image only when it is loaded
+      this.image = image;
+    }
+  },
+  methods: {
+      handleTransformEnd(e) {
+      const rect = this.images.find((r) => r.name === this.selectedShapeName);
+
+      rect.x = e.target.x();
+      rect.y = e.target.y();
+      rect.rotation = e.target.rotation();
+      rect.scaleX = e.target.scaleX();
+      rect.scaleY = e.target.scaleY();
+    },
+  },
+  watch: {
+      index() {
+       this.editIndex = this.index;
+       this.image = this.images[this.editIndex];
+      }
+  }
 }
 </script>
 
