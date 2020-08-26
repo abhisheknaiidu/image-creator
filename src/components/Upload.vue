@@ -66,7 +66,7 @@ export default {
 @media screen and (max-width: 767px) {
     .icon {
     position: fixed;
-    bottom: 0;
+    bottom: 15px;
 }
   }
 

@@ -2,7 +2,7 @@
   <div>
     <gallery :options="options" :images="images" :index="index" @close="index = null" >
     </gallery>
-    <masonry   :cols="3" :gutter="40">
+    <!-- <masonry   :cols="3" :gutter="40"> -->
     <div
       class="image"
       v-for="(image, imageIndex) in images"
@@ -10,7 +10,7 @@
       @click="index = imageIndex"
       :style="{ backgroundImage: 'url(' + image + ')', width: '300px', height: '200px' }"
     ></div>
-    </masonry>
+    <!-- </masonry> -->
   </div>
 </template>
 
