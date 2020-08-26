@@ -1,23 +1,23 @@
 <template>
   <div>
     <gallery :options="options" :images="images" :index="index" @close="index = null" >
-        <div v-on:keyup.49="small"> </div>
     </gallery>
+    <masonry   :cols="3" :gutter="40">
     <div
       class="image"
       v-for="(image, imageIndex) in images"
       :key="imageIndex"
       @click="index = imageIndex"
       :style="{ backgroundImage: 'url(' + image + ')', width: '300px', height: '200px' }"
-      v-on:keyup.49="small"
     ></div>
+    </masonry>
   </div>
 </template>
 
 <script>
   import firebase from 'firebase';
   import VueGallery from 'vue-gallery';
-  
+
   export default {
     data: function () {
       return {
@@ -44,21 +44,21 @@
     },
 
     components: {
-      'gallery': VueGallery
+      'gallery': VueGallery,
     },
     methods: {
 // eslint-disable-next-line no-use-before-define
-    keyboard() {
-        if (window.screen.width >= 1280) {
-            window.onkeydown = function (e) {
-                /* Only target spacebar click on "body" to not interfer with "input", "button", (...) elements */
-                if (e.keyCode === 32) {
-                    e.preventDefault()
-                    console.log("Hurray");
-                }
-            }      
-        }
-    },
+    // keyboard() {
+    //     if (window.screen.width >= 1280) {
+    //         window.onkeydown = function (e) {
+    //             /* Only target spacebar click on "body" to not interfer with "input", "button", (...) elements */
+    //             if (e.keyCode === 32) {
+    //                 e.preventDefault()
+    //                 console.log("Hurray");
+    //             }
+    //         }      
+    //     }
+    // },
     getImages(){
       let i = 0;
       this.storageRef.child('/').listAll().then((resp => {

@@ -10,6 +10,7 @@
 
 <script>
 import firebase from 'firebase';
+import swal from 'sweetalert';
 
 export default {
   name: 'ButtonUpload',
@@ -29,8 +30,14 @@ export default {
       storage.on('state_changed', snapshot => {
         const progress = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
         if(progress == 100) {
-          alert(`${progress}% complete uploaded`);
-          window.location.reload();
+          swal({
+              title: "Great 🎉",
+              text: `${progress}% complete uploaded`,
+              icon: "success",
+              button: "Aww yiss!",         
+          });
+        setTimeout(function(){  window.location.reload(); }, 5000);
+         
         }
       }, err => {
         alert(err.message);

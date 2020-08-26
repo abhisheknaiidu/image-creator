@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1> app </h1>
+    <h1> Task Project - Image Related Stuff </h1>
     <Gallery />
     <Upload />
   </div>
