@@ -11,7 +11,7 @@
       >
         <v-layer ref="layer">
           <v-image
-            :config="image"
+            :config="configImg"
             @transformend="handleTransformEnd"
           />
           <v-transformer ref="transformer" />
@@ -31,17 +31,9 @@ export default {
         width: 400,
         height: 400,
       },
-      image: null,
+      image: new Image(100, 100),
       editIndex: this.index,
       }
-  },
-  created() {
-    const image = new window.Image();
-    image.src = this.images[this.editIndex];
-    image.onload = () => {
-      // set image only when it is loaded
-      this.image = image;
-    }
   },
   methods: {
       handleTransformEnd(e) {
@@ -54,12 +46,28 @@ export default {
       rect.scaleY = e.target.scaleY();
     },
   },
+  computed: {
+    configImg() {
+      return {
+        x: 20,
+        y: 20,
+        image: this.image,
+        editIndex: this.index,
+        // image.src: this.images[this.editIndex],
+        width: 200,
+        height: 200,
+      }
+    }
+  },
   watch: {
       index() {
        this.editIndex = this.index;
-       this.image = this.images[this.editIndex];
+       this.image.src = this.images[this.editIndex];
       }
-  }
+  },
+//   mounted() {
+//     this.image.src = this.images[this.editIndex];
+// }
 }
 </script>
 
