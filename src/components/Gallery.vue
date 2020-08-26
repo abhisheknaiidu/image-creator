@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <gallery :options="options" :images="images" :index="index" @close="index = null" >
-    </gallery>
+  <div class="gallery">
+    <!-- <gallery :options="options" :images="images" :index="index" @close="index = null" >
+    </gallery> -->
     <!-- <masonry   :cols="3" :gutter="40"> -->
     <div
       class="image"
@@ -11,12 +11,16 @@
       :style="{ backgroundImage: 'url(' + image + ')', width: '300px', height: '200px' }"
     ></div>
     <!-- </masonry> -->
+    <div>
+    <Editor :index="index" :images = "images"/>
+    </div>
   </div>
 </template>
 
 <script>
   import firebase from 'firebase';
-  import VueGallery from 'vue-gallery';
+//   import VueGallery from 'vue-gallery';
+  import Editor from '@/components/Editor.vue';
 
   export default {
     data: function () {
@@ -44,21 +48,10 @@
     },
 
     components: {
-      'gallery': VueGallery,
+    //   'gallery': VueGallery,
+      Editor,
     },
     methods: {
-// eslint-disable-next-line no-use-before-define
-    // keyboard() {
-    //     if (window.screen.width >= 1280) {
-    //         window.onkeydown = function (e) {
-    //             /* Only target spacebar click on "body" to not interfer with "input", "button", (...) elements */
-    //             if (e.keyCode === 32) {
-    //                 e.preventDefault()
-    //                 console.log("Hurray");
-    //             }
-    //         }      
-    //     }
-    // },
     getImages(){
       let i = 0;
       this.storageRef.child('/').listAll().then((resp => {
@@ -81,8 +74,11 @@
 </script> 
 
 <style scoped>
+  .gallery {
+      display: flex;
+  }
   .image {
-    float: left;
+    /* float: left; */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
