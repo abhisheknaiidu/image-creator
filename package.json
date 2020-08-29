@@ -12,6 +12,7 @@
     "firebase": "^7.19.0",
     "konva": "^7.0.6",
     "sweetalert": "^2.1.2",
+    "uuid": "^8.3.0",
     "vue": "^2.6.11",
     "vue-gallery": "^2.0.1",
     "vue-konva": "^2.1.4"

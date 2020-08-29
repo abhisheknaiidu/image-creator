@@ -8,7 +8,8 @@
       v-for="(image, imageIndex) in images"
       :key="imageIndex"
       @click="index = imageIndex"
-      :style="{ backgroundImage: 'url(' + image + ')', width: '300px', height: '200px' }"
+      :style="{ backgroundImage: 'url(' + image.url + ')', width: '300px', height: '200px' }"
+      v-on:click="addImage"
     ></div>
     <!-- </masonry> -->
     <div>
@@ -21,12 +22,15 @@
   import firebase from 'firebase';
 //   import VueGallery from 'vue-gallery';
   import Editor from '@/components/Editor.vue';
+  import { v4 as uuidv4 } from "uuid";
+
 
   export default {
     data: function () {
       return {
         images: [],
         index: null,
+        image: new Image(100, 100),
         storageRef: firebase.storage().ref(),
         options: {
            onslide: function(index, slide) {
@@ -63,8 +67,25 @@
     },
     showImages(row,images){
       images.getDownloadURL().then((url) => {
-        this.images.push(url);
+        this.images.push({
+            url,
+            id: uuidv4(),
+            image: this.image,
+            rotation: 0,
+            x: 10,
+            y: 10,
+            width: 100,
+            height: 100,
+            scaleX: 1,
+            scaleY: 1,
+            name: String((url).split('o/')[1].split('.')[0]),
+            draggable: true,
+        });
       });
+    //   console.log(images);
+    },
+    addImage() {
+        console.log(this.index);
     }
   },
   created(){
